@@ -1,24 +1,25 @@
-hex_s = 'ff00000000000000000000000000000000000000000000000000000000000000'
-
-print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tHEX -> BigEndian")
-a = int(hex_s, 16)
-print(f"{hex_s} ->", a)
-
-endian = a
-
-print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tBigEndian -> HEX ")
-print(f"{endian} -> ", hex(endian))
-
-# sorry, i dont know how to do it and i did it in this way :)
+hex_s = input("Write your value: ")
 byte = int(input("Write byte of your value = "))
-print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tHEX->LittleEndian")
+a = int(hex_s, 16)
+msgHB = "HEX to BigEndian:"
+msgBH = "BigEndian to HEX:"
+msgHL = "HEX to LittleEndian:"
+msgLH = "LittleEndian to HEX:"
 
 
-def be_to_le(value: int) -> int:
+def hex_to_BigEndian(hex_s):
+    print(f"\n{msgHB} \n{hex_s} -> {a}")
+
+
+def BigEndian_to_hex(number):
+    print(f"{msgBH} \n{number} -> {hex(number)}")
+
+
+def BigEndian_to_LittleEndian(value: int) -> int:
     return int.from_bytes(value.to_bytes(byte, byteorder="little"), byteorder="big")
 
 
-print(f"{hex_s} -> ", be_to_le(endian))
-
-print("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tLittleEndian->HEX")
-print(f"{be_to_le(endian)} -> ", hex_s)
+hex_to_BigEndian(hex_s)
+BigEndian_to_hex(a)
+print(f"{msgHL}\n{hex_s} -> {BigEndian_to_LittleEndian(a)}")
+print(f"{msgLH}\n{BigEndian_to_LittleEndian(a)} -> {hex_s}")
