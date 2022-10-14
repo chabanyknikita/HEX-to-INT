@@ -1,28 +1,22 @@
-msgHB = "HEX to BigEndian:"
-msgBH = "BigEndian to HEX:"
-msgHL = "HEX to LittleEndian:"
-msgLH = "LittleEndian to HEX:"
+import binascii
 
-hex_s = input("Write your value: ")
-byte = int(len(str(hex_s)) / 2)
-a = int(hex_s, 16)
+a = input("Write value ")
+size = int(len(str(a)) / 2)
+print(a)
 
 
-def hex_to_BigEndian(hex_s):
-    print(f"{msgHB} \n{hex_s} -> {a}")
+def pad(mystr):
+    padding_size = 2 * size
+    mystr = mystr + "0" * (padding_size - len(mystr))
+    return mystr
 
 
-def BigEndian_to_hex(number):
-    print(f"{msgBH} \n{number} -> {hex(number)}")
+aa = pad(a[:2 * size])
 
+a1 = int.from_bytes(binascii.unhexlify(aa), byteorder='little')
+a2 = int.from_bytes(binascii.unhexlify(aa), byteorder='big')
+print(f"Value: 0x{a}\nNumber of bytes: {size}\nLittle-endian: {a1}\nBig-endian: {a2}")
 
-def BigEndian_to_LittleEndian(value: int) -> int:
-    return int.from_bytes(value.to_bytes(byte, byteorder="little"), byteorder="big")
-
-
-print(f"\nValue: {hex_s}")
-print(f"Number of bytes: {byte}")
-hex_to_BigEndian(hex_s)
-BigEndian_to_hex(a)
-print(f"{msgHL}\n{hex_s} -> {BigEndian_to_LittleEndian(a)}")
-print(f"{msgLH}\n{BigEndian_to_LittleEndian(a)} -> {hex_s}")
+b = '0x{0:08X}'.format(a2)
+l = '0x%X' % a1
+print(f"BigEndian to HEX: {b}\nLittleEndian to HEX: {l}")
